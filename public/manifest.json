@@ -1,0 +1,28 @@
+{
+  "name": "José Adrián Coello — Perfil Digital",
+  "short_name": "JA Coello",
+  "description": "Perfil digital profesional de José Adrián Coello Moreira — Oficial Senior Corporativo CCG",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#d4af37",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "lifestyle"],
+  "lang": "es",
+  "dir": "ltr"
+}

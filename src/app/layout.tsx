@@ -28,8 +28,10 @@ export const metadata: Metadata = {
     "Consultoría",
   ],
   authors: [{ name: "José Adrián Coello Moreira" }],
+  manifest: "/manifest.json",
   icons: {
-    icon: "/images/jose/alfombra-roja.jpg",
+    icon: "/icons/icon-192.png",
+    apple: "/icons/icon-512.png",
   },
   openGraph: {
     title: "José Adrián Coello | Líder Transformacional · Estratega Comercial",
@@ -52,6 +54,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark" suppressHydrationWarning>
+      <head>
+        <meta name="theme-color" content="#d4af37" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="JA Coello" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >

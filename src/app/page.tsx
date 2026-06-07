@@ -21,7 +21,15 @@ import {
   Target,
   Rocket,
   Download,
+  Smartphone,
+  X,
 } from "lucide-react";
+
+/* ─── PWA Types ─── */
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
 
 /* ─── Animation on Scroll Hook ─── */
 function useReveal() {
@@ -267,11 +275,36 @@ export default function HomePage() {
   const [whatsappVisible, setWhatsappVisible] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIdx, setLightboxIdx] = useState(0);
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setWhatsappVisible(true), 2500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Register service worker
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+    // Listen for install prompt
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+      setTimeout(() => setShowInstallBanner(true), 4000);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
+  }, []);
+
+  const handleInstall = useCallback(async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    setInstallPrompt(null);
+    setShowInstallBanner(false);
+  }, [installPrompt]);
 
   const openLightbox = useCallback((i: number) => {
     setLightboxIdx(i);
@@ -884,6 +917,37 @@ export default function HomePage() {
           </RevealSection>
         </div>
       </footer>
+
+      {/* ═══════ INSTALL APP BANNER ═══════ */}
+      {showInstallBanner && installPrompt && (
+        <div className="fixed bottom-20 right-4 left-4 sm:left-auto sm:w-72 z-40 animate-slide-up">
+          <div className="glass-card rounded-2xl p-4 border border-brand-gold/20 shadow-2xl shadow-brand-gold/10">
+            <button
+              onClick={() => setShowInstallBanner(false)}
+              className="absolute top-2 right-2 text-muted-foreground/50 hover:text-foreground transition-colors"
+              aria-label="Cerrar"
+            >
+              <X size={16} />
+            </button>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-brand-gold/15 flex items-center justify-center shrink-0">
+                <Smartphone size={20} className="text-brand-gold" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-sm text-foreground">Instalar en tu celular</p>
+                <p className="text-xs text-muted-foreground">Acceso rápido sin navegador</p>
+              </div>
+            </div>
+            <button
+              onClick={handleInstall}
+              className="mt-3 w-full py-2.5 rounded-xl bg-gradient-gold text-brand-dark font-semibold text-sm hover:shadow-lg hover:shadow-brand-gold/25 transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+            >
+              <Download size={16} />
+              Instalar App
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ═══════ FLOATING WHATSAPP ═══════ */}
       <a
