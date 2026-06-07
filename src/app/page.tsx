@@ -16,7 +16,6 @@ import {
   Linkedin,
   Star,
   Zap,
-  Crown,
   ChevronDown,
   Target,
   Rocket,
@@ -158,7 +157,7 @@ const TYPING_PHRASES = [
 
 const STATS = [
   { value: 7, suffix: "+", label: "Años de Trayectoria", icon: TrendingUp },
-  { value: 136, suffix: "", label: "Años CCG", icon: Crown },
+  { value: 136, suffix: "", label: "Años CCG", icon: Globe },
   { value: 100, suffix: "%", label: "Compromiso", icon: Target },
 ];
 
@@ -349,9 +348,9 @@ export default function HomePage() {
                       priority
                     />
                   </div>
-                  {/* Crown badge */}
+                  {/* Verified badge */}
                   <div className="absolute -bottom-1 -right-1 w-9 h-9 rounded-full bg-gradient-gold flex items-center justify-center border-2 border-brand-dark">
-                    <Crown size={16} className="text-brand-dark" strokeWidth={3} />
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                   </div>
                   {/* Online indicator */}
                   <div className="absolute top-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-brand-dark pulse-online" />
@@ -532,7 +531,7 @@ export default function HomePage() {
                 className="flex items-center gap-4 w-full p-4 rounded-2xl border transition-all duration-300 group cursor-pointer glass-card hover:bg-brand-card-hover text-foreground border-brand-border shine-effect"
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-brand-gold/10">
-                  <Crown size={22} className="text-brand-gold" />
+                  <Handshake size={22} className="text-brand-gold" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-sm sm:text-base">Red de Socios CCG</p>
