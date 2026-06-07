@@ -864,9 +864,7 @@ export default function HomePage() {
               </div>
               <div className="shimmer-line" />
               <p className="text-xs text-muted-foreground">
-                © {new Date().getFullYear()} José Adrián Coello Moreira — Cámara de
-                Comercio de Guayaquil
-                <span className="text-muted-foreground/50"> · Guayaquil, Ecuador</span>
+                © {new Date().getFullYear()} José Adrián Coello Moreira — Cámara de Comercio de Guayaquil, Ecuador
               </p>
               {/* Jimbra Credit */}
               <div className="pt-2">
